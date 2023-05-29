@@ -27,7 +27,7 @@ class NumpyDataset(torch.utils.data.Dataset):
 
 
 class MLP(nn.Module):
-    def __init__(self, layer_sizes: List[int], activation=nn.ReLU):
+    def __init__(self, layer_sizes: List[int], activation=nn.ReLU()):
         super().__init__()
         if len(layer_sizes) < 2:
             raise ValueError("At least 2 layers are required")
@@ -35,7 +35,7 @@ class MLP(nn.Module):
         layers = []
         for size_from, size_to in zip(layer_sizes, layer_sizes[1:-1]):
             layers.append(nn.Linear(size_from, size_to))
-            layers.append(activation())
+            layers.append(activation)
         layers.append(nn.Linear(layer_sizes[-2], layer_sizes[-1]))
 
         self.linear_stack = nn.Sequential(*layers)
